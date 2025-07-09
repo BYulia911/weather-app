@@ -67,8 +67,8 @@
         <h2>Прогноз погоды в городе {{ weather_data['city']['name'] }}:</h2>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
             {% for item in weather_data['list'] %}
-                <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin: 10px; width: 200px; text-align: center;">
-                    <strong>{{ item['formatted_date'] }}</strong><br>
+                <div style="border: 1px solid #ccc; border-radius: 30px; padding: 10px; margin: 10px; width: 150px; text-align: center;">
+                    <p>{{ item['formatted_date'] }}</p>
                     <strong>{{ item['formatted_time'] }}</strong>
                     <p>{{ item['main']['temp'] }}°C</p>
                     <img src="{{ item['image'] }}" alt="{{ item['weather'][0]['description'] }}" style="width: 100px; height: auto;">
