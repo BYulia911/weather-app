@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        h2 {
+            text-align: center;
+            color: #27ae60;
+        }
+        p {
+            text-align: center;
+            font-size: 18px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Проверка погоды</h1>
+    <form method="POST">
+        <input type="text" name="city" placeholder="Введите название города" required>
+        <button type="submit">Получить погоду</button>
+    </form>
+
+    {% if weather_data %}
+        <h2>Прогноз погоды в городе {{ weather_data['city']['name'] }}:</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            {% for item in weather_data['list'] %}
+                <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin: 10px; width: 200px; text-align: center;">
+                    <strong>{{ item['formatted_date'] }}</strong><br>
+                    <strong>{{ item['formatted_time'] }}</strong>
+                    <p>{{ item['main']['temp'] }}°C</p>
+                    <img src="{{ item['image'] }}" alt="{{ item['weather'][0]['description'] }}" style="width: 100px; height: auto;">
+                </div>
+            {% endfor %}
+        </div>
+    {% elif error_message %}
+        <p class="error">{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>
